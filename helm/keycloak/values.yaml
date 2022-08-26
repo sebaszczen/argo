@@ -1,0 +1,19 @@
+keycloak:
+  auth:
+    adminUser: admin
+    adminPassword: admin
+  ingress:
+    enabled: true
+    hostname: keycloak
+  extraEnvVars:
+    - name: KEYCLOAK_EXTRA_ARGS
+      value: "-Dkeycloak.import=/opt/keycloak/imports/realm-export.json"
+  extraVolumes:
+    - name: realm-conf
+      configMap:
+        name: realm
+        defaultMode: 0777
+  extraVolumeMounts:
+    - mountPath: /opt/keycloak/imports/
+      name: realm-conf
+
